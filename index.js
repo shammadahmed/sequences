@@ -25,3 +25,48 @@ function collatz (n, y) {
         return collatz(3*n+1, y++) 
     };
 }
+
+let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+
+printListRev = list => {
+    values = [];
+    
+    while (list) {
+        values.push(list.value);
+
+        list = list.next;
+    };
+
+    console.log(values.reverse());
+}
+
+printListRevRec = list => {
+    if (list.next) printListRevRec(list.next);
+    console.log(list.value);
+};
+
+printList = (list) => {
+  while (list) {
+      console.log(list.value);
+      list = list.next;
+  }  
+};
+
+printListRec = (list) => {
+    if (list.next) {
+        console.log(list.value);
+        printListRec(list.next);
+    }
+};
