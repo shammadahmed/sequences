@@ -12,6 +12,13 @@ function fibsIte (n) {
     return seq;
 }
 
+const fibsRec = n => {
+    if (n <= 1) { return 0 }
+    if (n === 2) { return 1 }
+
+    return fibsRec(n - 1) + fibsRec(n - 2);
+};
+
 function collatz (n, y) {
     if (!y) y = 0;
     
@@ -69,4 +76,41 @@ printListRec = (list) => {
         console.log(list.value);
         printListRec(list.next);
     }
+};
+
+const mergeSort = nums => {
+    if (nums.length === 1) return nums;
+    
+    let first = nums.slice(0, Math.floor(nums.length/2));
+    if (first.length > 2) first = mergeSort(first);
+    else if (first[0] > first[1]) first = [first[1], first[0]];
+    
+    let second = nums.slice(Math.floor(nums.length/2), nums.length);
+    if (second.length > 2) second = mergeSort(second);
+    else if (second[0] > second[1]) second = [second[1], second[0]];
+
+    let merged = [];
+
+    for (let k = 0; k < nums.length; k++) {
+        if (first[0] < second[0]) {
+            merged.push(first[0]);
+            first.shift();
+        } else if (second[0] < first[0]) {
+            merged.push(second[0]);
+            second.shift();
+        } else if (first[0] === second[0]) {
+            merged.push(first[0]);
+            merged.push(second[0]);
+            first.shift();
+            second.shift();
+        } else if (first.length === 0) {
+            merged.push(...second);
+            break;
+        } else if (second.length === 0) {
+            merged.push(...first);
+            break;
+        }
+    }
+
+    return merged;
 };
